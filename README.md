@@ -7,6 +7,8 @@ Check the [biodenoising web page](https://mariusmiron.com/research/biodenoising)
 
 The proposed model is based on the Demucs architecture, originally proposed for music source-separation and [real-time speech enhancement](https://github.com/facebook/denoiser). 
 
+We publish the pre-print on [arXiv](https://arxiv.org/abs/2410.03427).
+
 ## Colab
 
 If you want to play with the pretrained model inside colab for instance, start from this [Colab Example for Biodenoising](https://colab.research.google.com/drive/1Too3cnMpyKaLQ0vPwDw7jUx0Y3eXm2IA?usp=sharing).
@@ -19,7 +21,7 @@ First, install Python >= 3.8 (recommended with miniconda).
 
 Just run
 ```bash
-pip install biodenosing_inference
+pip install biodenoising_inference
 ```
 
 #### Development
@@ -173,7 +175,15 @@ Feel free to explore different settings, i.e. bigger models and more CPU-cores.
 ## Citation
 If you use the code in your research, then please cite it as:
 ```
-
+@misc{miron2024biodenoisinganimalvocalizationdenoising,
+      title={Biodenoising: animal vocalization denoising without access to clean data}, 
+      author={Marius Miron and Sara Keen and Jen-Yu Liu and Benjamin Hoffman and Masato Hagiwara and Olivier Pietquin and Felix Effenberger and Maddie Cusimano},
+      year={2024},
+      eprint={2410.03427},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2410.03427}, 
+}
 ```
 
 ## License
