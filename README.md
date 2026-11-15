@@ -17,23 +17,86 @@ If you want to play with the pretrained model inside colab for instance, start f
 
 First, install Python >= 3.8 (recommended with miniconda).
 
+Use a fresh virtualenv or Conda environment for either installation method below.
+
+### Linux prerequisite
+
+Install the PortAudio runtime before installing the Python dependencies. On
+Debian/Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get install libportaudio2
+```
+
+On other Linux distributions, install the equivalent PortAudio runtime package.
+`pip` does not install this system library on Linux. It is required by
+`sounddevice`, which is imported when loading `biodenoising`, even for offline
+denoising. See the [sounddevice installation documentation](https://python-sounddevice.readthedocs.io/en/latest/installation.html).
+
+Asteroid's PESQ dependency may compile from source when no wheel is available
+for your platform. If that build fails because a C compiler or Python headers
+are missing, install the corresponding build tools (for Debian/Ubuntu system
+Python: `sudo apt-get install build-essential python3-dev`).
+
+### PyTorch and TorchAudio compatibility
+
+This code uses `torchaudio.info`, which was removed in TorchAudio 2.9, so both
+`torch` and `torchaudio` are constrained to versions below 2.9. Install compatible
+releases and matching CPU/CUDA builds together; see the
+[TorchAudio installation documentation](https://docs.pytorch.org/audio/2.8/installation.html).
+For example, for a CPU-only environment with Python 3.9–3.13, you can run this
+before either installation method:
+
+```bash
+python -m pip install torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+```
+
 #### Through pip (you just want to use pre-trained model out of the box)
 
 Just run
 ```bash
-pip install biodenoising_inference
+python -m pip install biodenoising_inference
 ```
 
 #### Development
 
-Clone this repository and install the dependencies. We recommend using
-a fresh virtualenv or Conda environment.
+Clone this repository and install the dependencies and package in editable mode.
 
 ```bash
-git clone https://github.com/earthspecies/biodenoising-inference-internal
-cd biodenoising-inference-internal
-pip install -r requirements.txt  
+git clone https://github.com/earthspecies/biodenoising-inference.git
+cd biodenoising-inference
+python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
+
+### Check the installation
+
+These checks only load imports and print help. They do not download a model or
+open a microphone:
+
+```bash
+python -m pip check
+python -c "import biodenoising, sounddevice, torch, torchaudio; print(torch.__version__, torchaudio.__version__)"
+python -m biodenoising.denoiser.denoise --help
+python -m biodenoising.denoiser.live --help
+```
+
+The module commands above work with either installation method. The top-level
+`biodenoising_offline.py` and `biodenoising_live.py` scripts are only available
+in the source checkout.
+
+For development checks, run:
+
+```bash
+python -m pip install -r requirements-test.txt
+python -m unittest discover -s tests -v
+python tests/offline_smoke.py
+```
+
+The synthetic smoke check uses a small untrained model and a generated WAV file,
+with the unused `librosa` and `norbert` imports blocked. It does not download
+pretrained weights or measure denoising quality.
 
 ## Live Denoising
 

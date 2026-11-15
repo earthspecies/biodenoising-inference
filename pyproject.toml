@@ -16,7 +16,9 @@ authors = [
   { name="Marius Miron", email="info@mariusmiron.com" },
 ]
 readme = "README.md"
-dependencies = ['julius', 'numpy>=1.19', 'six', 'sounddevice>=0.4', 'torch>=1.5', 'torchaudio>=0.5', 'openunmix', 'asteroid', 'einops', 'omegaconf==1.4.1', 'noisereduce']
+# Keep these dependencies in sync with requirements.txt and setup.py.
+# torchaudio.info is removed in 2.9.
+dependencies = ['julius', 'numpy>=1.19', 'six', 'sounddevice>=0.4', 'torch>=1.5,<2.9', 'torchaudio>=0.5,<2.9', 'openunmix', 'asteroid', 'einops', 'omegaconf==1.4.1', 'noisereduce']
 
 classifiers=[
         'Topic :: Multimedia :: Sound/Audio :: Analysis',

@@ -10,8 +10,6 @@ import numpy as np
 
 import torch
 import torchaudio
-import librosa
-import norbert
 
 
 from .demucs import DemucsStreamer
