@@ -1,10 +1,12 @@
 julius
-numpy
+numpy>=1.19
+six
 einops
 openunmix
 asteroid
-sounddevice
-torchaudio
-torch
+sounddevice>=0.4
+# torchaudio.info is removed in 2.9; keep a compatible torch/torchaudio pair.
+torchaudio>=0.5,<2.9
+torch>=1.5,<2.9
 omegaconf==1.4.1
 noisereduce

@@ -25,12 +25,13 @@ REQUIRED = [
     'numpy>=1.19',
     'six',
     'sounddevice>=0.4',
-    'torch>=1.5',
-    'torchaudio>=0.5',
+    'torch>=1.5,<2.9',
+    'torchaudio>=0.5,<2.9',
     'openunmix',
+    'asteroid',
     'einops',
     'omegaconf==1.4.1',
-    'noisereduce'
+    'noisereduce',
 ]
 
 REQUIRED_LINKS = [
