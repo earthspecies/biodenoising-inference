@@ -25,7 +25,12 @@ def _demucs(pretrained, url, **kwargs):
     model = Demucs(**kwargs, sample_rate=kwargs.get('sample_rate', 16_000))
     if pretrained:
         state_dict = torch.hub.load_state_dict_from_url(url, map_location='cpu')
-        model = load_model_state_dict(model, state_dict)
+        # The published DNS48 checkpoint wraps its tensors in a model package.
+        # Do not instantiate its stored class or mutate its constructor options.
+        if 'model' in state_dict:
+            state_dict = state_dict['model']['state']
+        # A named pretrained model must not return partially initialized weights.
+        model = load_model_state_dict(model, state_dict, strict=True)
     return model
 
 
