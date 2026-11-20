@@ -172,10 +172,9 @@ def bold(text):
     """
     return colorize(text, "1")
 
-def load_model_state_dict(model, state_dict):
-    current_model_dict = model.state_dict()
-    #new_state_dict={k:v for k,v in state_dict.items() if list(v.size())==list(current_model_dict[k].size())}
-    model.load_state_dict(current_model_dict, strict=False)
+def load_model_state_dict(model, state_dict, *, strict=False):
+    """Apply supplied weights, allowing missing or extra keys unless strict."""
+    model.load_state_dict(state_dict, strict=strict)
     return model
 
 def apply_output_transform(rec_sources_wavs, input_mix_std,
